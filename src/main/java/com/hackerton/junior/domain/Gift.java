@@ -14,9 +14,15 @@ public final class Gift {
     @Column(name = "gift_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long tagId;
     private String url;
 
     public Gift(final String url) {
+        this.url = url;
+    }
+
+    public Gift(final Long tagId, final String url) {
+        this.tagId = tagId;
         this.url = url;
     }
 }

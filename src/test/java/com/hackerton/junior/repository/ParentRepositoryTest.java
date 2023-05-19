@@ -1,5 +1,6 @@
 package com.hackerton.junior.repository;
 
+import com.hackerton.junior.domain.Duration;
 import com.hackerton.junior.domain.Education;
 import com.hackerton.junior.domain.Gift;
 import com.hackerton.junior.domain.Parent;
@@ -60,7 +61,7 @@ class ParentRepositoryTest {
     void addEducation() {
         //given
         final Parent parent = parentRepository.save(new Parent("이름1234"));
-        final Education education = educationRepository.save(new Education("주소"));
+        final Education education = educationRepository.save(new Education("주소", new Duration()));
 
         //when
         parent.addEducation(education);
@@ -69,7 +70,7 @@ class ParentRepositoryTest {
         //then
         assertSoftly(soft -> {
             assertThat(persistedEducations).hasSize(1);
-            assertThat(persistedEducations.get(0).getUrl()).isEqualTo("주소");
+            assertThat(persistedEducations.get(0).getVideoId()).isEqualTo("주소");
             assertThat(educationRepository.findAll()).hasSize(1);
         });
     }

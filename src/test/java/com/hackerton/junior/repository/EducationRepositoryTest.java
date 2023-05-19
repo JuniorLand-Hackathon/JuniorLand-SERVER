@@ -1,5 +1,6 @@
 package com.hackerton.junior.repository;
 
+import com.hackerton.junior.domain.Duration;
 import com.hackerton.junior.domain.Education;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,15 +20,15 @@ class EducationRepositoryTest {
     @Test
     void save() {
         //given
-        final Education education = new Education(1L, "주소");
+        final Education education = new Education("주소", new Duration());
 
         //when
         final Education persisted = educationRepository.save(education);
 
         //then
         assertSoftly(soft -> {
-            assertThat(persisted.getId()).isEqualTo(1L);
-            assertThat(persisted.getUrl()).isEqualTo(education.getUrl());
+            assertThat(persisted.getId()).isNotNull();
+            assertThat(persisted.getVideoId()).isEqualTo(education.getVideoId());
         });
     }
 }
