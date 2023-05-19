@@ -24,7 +24,7 @@ public final class EducationInfoProvider {
     private static final JsonFactory JSON_FACTORY = new JacksonFactory();
     private static final String APPLICATION_NAME = "Gdsc-Hackerton";
 
-    public List<Education> getInfos(List<String> urls) {
+    public List<Education> getInfos(final List<String> urls) {
         try {
             final YouTube.Videos.List search = makeClient(urls);
 

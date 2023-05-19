@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/childrens")
+@RequestMapping("/children")
 public final class JuniorController {
 
     private final JuniorService juniorService;
