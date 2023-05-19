@@ -5,6 +5,8 @@ import com.hackerton.junior.domain.Gift;
 import com.hackerton.junior.domain.Parent;
 import com.hackerton.junior.dto.GiftRequest;
 import com.hackerton.junior.dto.GiftsAndEducationsRequest;
+import com.hackerton.junior.repository.EducationRepository;
+import com.hackerton.junior.repository.GiftRepository;
 import com.hackerton.junior.repository.ParentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,10 @@ import java.util.Optional;
 public class JuniorService {
     private final EducationInfoProvider infoProvider;
     private final ParentRepository parentRepository;
+    private final GiftRepository giftRepository;
+    private final EducationRepository educationRepository;
 
+    @Transactional
     public Parent findById(final String id) {
         final Optional<Parent> parent = parentRepository.findById(id);
 
@@ -36,13 +41,17 @@ public class JuniorService {
         parentRepository.save(parent);
     }
 
-    private List<Gift> parseToGifts(final List<GiftRequest> gifts) {
-        return gifts.stream()
+    private List<Gift> parseToGifts(final List<GiftRequest> giftRequests) {
+        final List<Gift> gifts = giftRequests.stream()
                 .map(GiftRequest::toGift)
                 .toList();
+
+        return giftRepository.saveAll(gifts);
     }
 
     private List<Education> parse(final List<String> videoIds) {
-        return infoProvider.getInfos(videoIds);
+        final List<Education> educations = infoProvider.getInfos(videoIds);
+
+        return educationRepository.saveAll(educations);
     }
 }
